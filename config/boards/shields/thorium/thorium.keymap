@@ -25,6 +25,18 @@
     quick-tap-ms = <200>;
 };
 
+macros {
+        // sometimes my device thinks a modifier is being held down
+        // pressing all modifiers fixes it.
+
+        unstick: unstick {
+            label = "ZM_unstick";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LSHIFT &kp RSHIFT &kp LCTRL &kp RCTRL &kp LALT &kp RALT &kp LGUI &kp RGUI>;
+        };
+};
+
 / {
     keymap {
         compatible = "zmk,keymap";
