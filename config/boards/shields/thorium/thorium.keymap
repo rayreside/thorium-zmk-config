@@ -17,28 +17,13 @@
 
 // -----------------
 
-&sk {
-    // don't release mods on other mods presses
-
-    ignore-modifiers;
+&lt {  // layer-tap config
+    flavor = "balanced";
+    tapping-term-ms = <200>;
+    quick-tap-ms = <175>;
 };
 
 / {
-    behaviors {
-        // Enables holding the first mod-tap key
-        // by performing a tap-release-hold sequence.
-        // To use it: "&qt KEYCODE1 KEYCODE2"
-
-        qt: quick_tap {
-            compatible = "zmk,behavior-hold-tap";
-            label = "QUICK_TAP";
-            #binding-cells = <2>;
-            flavor = "hold-preferred";
-            tapping-term-ms = <200>;
-            quick-tap-ms = <200>;
-            bindings = <&kp>, <&kp>;
-        };
-    };
 
     macros {
         // sometimes my device thinks a modifier is being held down
@@ -52,16 +37,6 @@
         };
     };
 
-    combos {
-        compatible = "zmk,combos";
-
-        // both right thumb keys
-        // internal-left & external-right thumb keys
-        // both left thumb keys
-        // left index & middle fingers (home-row)
-        // hold control & space for Adobe workflow
-    };
-
     keymap {
         compatible = "zmk,keymap";
 
@@ -70,60 +45,56 @@
         default_layer {
             label = "beep";
             bindings = <
-&kp Q             &kp W             &kp E    &kp R            &kp T             &kp Y          &kp U        &kp I        &kp O      &kp P
-&kp A             &kp S             &kp D    &lt 1 F          &kp G             &kp H          &kp J        &kp K        &kp L      &kp BACKSPACE
-&mt LEFT_ALT Z    &mt LEFT_GUI X    &kp C    &kp V            &kp B             &kp N          &kp M        &kp COMMA    &kp DOT    &kp SQT
-                                             &mt LCTRL TAB    &kp LEFT_SHIFT    &lt 2 SPACE    &lt 3 ENTER
+                &kp Q             &kp W             &kp E    &kp R            &kp T             &kp Y          &kp U        &kp I        &kp O      &kp P
+                &kp A             &kp S             &kp D    &lt 1 F          &kp G             &kp H          &lt 4 J      &kp K        &kp L      &kp BACKSPACE
+                &mt LEFT_ALT Z    &mt LEFT_GUI X    &kp C    &kp V            &kp B             &kp N          &kp M        &kp COMMA    &kp DOT    &kp SQT
+                                                             &mt LCTRL TAB    &kp LEFT_SHIFT    &lt 2 SPACE    &lt 3 ENTER
             >;
         };
 
         // Numbers and high frequency symbols
-
         sym_layer {
             label = "sym";
             bindings = <
-&kp ESCAPE      &kp MINUS               &kp EQUAL                &none     &none            &none            &kp N7          &kp N8          &kp N9          &kp GRAVE
-&kp QUESTION    &kp LEFT_PARENTHESIS    &kp RIGHT_PARENTHESIS    &trans    &kp COLON        &kp PIPE         &kp NUMBER_4    &kp N5          &kp NUMBER_6    &trans
-&kp SLASH       &kp LEFT_BRACKET        &kp RIGHT_BRACKET        &none     &kp SEMICOLON    &kp BACKSLASH    &kp NUMBER_1    &kp NUMBER_2    &kp NUMBER_3    &trans
-                                                                 &trans    &trans           &trans           &kp N0
+                &kp ESCAPE      &kp MINUS               &kp EQUAL                &none     &none            &none            &kp N7          &kp N8          &kp N9          &kp UNDER
+                &kp QUESTION    &kp LEFT_PARENTHESIS    &kp RIGHT_PARENTHESIS    &trans    &kp COLON        &kp PIPE         &kp NUMBER_4    &kp N5          &kp NUMBER_6    &trans
+                &kp SLASH       &kp LEFT_BRACKET        &kp RIGHT_BRACKET        &none     &kp SEMICOLON    &kp BACKSLASH    &kp NUMBER_1    &kp NUMBER_2    &kp NUMBER_3    &kp GRAVE
+                                                                                 &trans    &trans           &trans           &kp N0
             >;
         };
 
         // Main modifiers and arrow keys
-
         ext_layer {
             label = "ext";
             bindings = <
-&kp LC(LA(DEL))    &none            &none    &none     &kp LC(LS(T))    &kp PAGE_UP      &kp HOME      &kp UP          &kp END            &kp DEL
-&none              &kp LG(LS(S))    &none    &none     &none            &kp PAGE_DOWN    &kp LEFT      &kp DOWN        &kp RIGHT          &none
-&trans             &trans           &none    &none     &none            &kp LC(LS(N))    &kp C_MUTE    &kp C_VOL_DN    &kp C_VOLUME_UP    &kp ENTER
-                                             &trans    &trans           &trans           &trans
+                &kp LC(LA(DEL))    &none            &none    &none     &kp LC(LS(T))    &kp PAGE_UP      &kp HOME      &kp UP          &kp END            &kp DEL
+                &none              &kp LG(LS(S))    &none    &none     &none            &kp PAGE_DOWN    &kp LEFT      &kp DOWN        &kp RIGHT          &none
+                &trans             &trans           &none    &none     &none            &kp LC(LS(N))    &none         &kp C_VOL_DN    &kp C_VOLUME_UP    &kp C_MUTE
+                                                             &trans    &trans           &trans           &trans
             >;
         };
 
         // Function keys with modifiers
-
         fnc_layer {
             label = "fnc";
             bindings = <
-&kp F1     &kp F2     &kp F3    &kp F4    &kp F5    &kp F6    &kp F7    &kp F8    &kp F9    &kp F10
-&kp F11    &kp F12    &none     &none     &none     &none     &none     &none     &trans    &trans
-&trans     &trans     &none     &none     &none     &none     &none     &none     &none     &none
-                                &mo 4     &trans    &trans    &trans
+                &kp F1     &kp F2     &kp F3    &kp F4    &kp F5    &kp F6    &kp F7    &kp F8      &kp F9      &kp F10
+                &kp F11    &kp F12    &none     &none     &none     &none     &none     &none       &none       &trans
+                &trans     &trans     &none     &none     &none     &none     &none     &none       &none       &none
+                                                &mo 4     &trans    &trans    &trans
             >;
         };
 
         // Low frequency symbols.
         // Used to type regional accents.
         // Used to change the keyboard's settings.
-
         settings_layer {
             label = "set";
             bindings = <
-&bootloader    &none    &none    &bt BT_CLR    &bt BT_SEL 0    &bt BT_SEL 3    &none    &unstick    &none    &bootloader
-&none          &none    &none    &none         &bt BT_SEL 1    &bt BT_SEL 4    &none    &none       &none    &none
-&none          &none    &none    &none         &bt BT_SEL 2    &bt BT_SEL 5    &none    &none       &none    &none
-                                 &none         &none           &none           &none
+                &bootloader    &none    &none    &none      &none       &none    &none    &unstick    &none    &bootloader
+                &none          &none    &none    &none      &none       &none    &none    &none       &none    &none
+                &none          &none    &none    &none      &none       &none    &none    &none       &none    &none
+                                                 &none      &none       &none    &none
             >;
         };
     };
